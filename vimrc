@@ -1,7 +1,7 @@
 " Vim configuration file
 " By Alexandre Daigneault
 " Updated: 20220901
-" This is now tracked by git
+" This is now tracked by git!!!
 
 " BASIC CONFIGURATION
 
