@@ -2,6 +2,7 @@
 " By Alexandre Daigneault
 " Updated: 20220901
 " This is now tracked by git!!!
+" Don't forget to update and commit with git!
 
 " BASIC CONFIGURATION
 
