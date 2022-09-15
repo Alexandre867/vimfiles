@@ -1,6 +1,6 @@
 " Vim configuration file
 " By Alexandre Daigneault
-" Updated: 20220907
+" Updated: 20220914
 " This is now tracked by git!!!
 " Don't forget to update and commit with git!
 
@@ -11,35 +11,41 @@
 " set pythonthreedll=C:\ProgramData\Anaconda3\python3.dll
 " set pythonthreehome="C:\Program Files\Python310"
 " let pythonthreedll="C:\Program Files\Python310\python310.dll"
-set pythonthreehome="C:\Program Files\Python36\"
-set pythonthreedll="C:\Program Files\Python36\python36.dll"
+" set pythonthreehome="C:\Program Files\Python36\"
+" set pythonthreedll="C:\Program Files\Python36\python36.dll"
 " set pythonthreehome=c:\Users\Alex\Anaconda3\
 " set pythonthreedll=c:\Users\Alex\Anaconda3\python39.dll
 
 " :echo system('where python36.dll')
 
-syntax on				" syntax highlighting
+syntax on					" syntax highlighting
 
-set gdefault			" flag g is default on (for :substitute)
-set incsearch			" Show partial search results as you type
-set hlsearch			" Highlight all search results
-set ignorecase			" Ignores the case for regex search
-set smartcase			" Overrides ignorecase if upper case character
-set number				" Show line number
-set autoindent			" Autoindent
-" set showmatch			" Shows matching brackets during input
+set gdefault				" flag g is default on (for :substitute)
+set incsearch				" Show partial search results as you type
+set hlsearch				" Highlight all search results
+set ignorecase				" Ignores the case for regex search
+set smartcase				" Overrides ignorecase if upper case character
+set number					" Show line number
+set autoindent				" Autoindent
+set nowrapscan				" Avoids scanning again from the top after reaching the end
+" set showmatch				" Shows matching brackets during input
 " let mapleader = "ù"		" Leader key is now "ù", (not working with utf-8)
-" " ENCODING: Might need to be commented out
+" ENCODING: Might need to be commented out
 set encoding=utf-8
 " set encoding=ansi
-" set spell spelllang=en_ca
-set spell spelllang=fr
+" set spell spelllang=en_ca		" Spelling correct (in English)
 " set spelllang+=fr
+set spell spelllang=fr		" Spelling correct (in French)
 set tabstop=4				" Set tab width to 4 spaces
-" For no adding missing end of file:
+set shiftwidth=4			" For proper (auto)indent width
+set noexpandtab				" Tabs inserted as tabs
+" For no adding missing end of line at end of file:
 set nofixendofline
 
+
 inoremap jk <ESC>
+" Correct the spelling using CTRL-l in insert-mode
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " For the movements in wrapped text
 noremap j gj
 noremap k gk
@@ -57,7 +63,7 @@ vnoremap <C-X> "+d
 vnoremap <C-V> "+p
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
-imap oe œ
+imap oe<tab> œ
 
 " colorscheme elflord
 colorscheme molokai			" Change the colorscheme
@@ -68,15 +74,17 @@ set splitbelow
 set linebreak
 set display=lastline,uhex
 set guioptions-=T			" Removes toolbar
-set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
+set belloff+=backspace,cursor,esc
+set visualbell
 " set scrolloff=1			" keep at least 1 lines above/below
 " set sidescrolloff=5		" keep at least 5 lines left/right
+
+" Make VIM more convenient like a normal text editor
+set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
 set backspace=3 "indent,eol,start,nostop	" Allow backspace wrapping in editing
-set belloff+=backspace,cursor,esc
 set keymodel=startsel,stopsel	" Shift-arrow will start visual/select mode
 au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start select mode instead of visual when started from Insert mode
 au InsertLeave * set selectmode=			" Resets mouse and shift-arrow to start visual mode when note from Insert mode
-set visualbell
 
 " https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 
@@ -91,19 +99,29 @@ set visualbell
 call plug#begin()
 
 Plug 'lervag/vimtex'		" For VimTeX
-let g:tex_flavor='latex'
-let g:vimtex_view_general_viewer = 'SumatraPDF'
-let g:vimtex_view_general_options
-    \ = '-reuse-instance -forward-search @tex @line @pdf'
-" https://github.com/lervag/vimtex/issues/1410#issuecomment-506143020
-" let g:vimtex_quickfix_mode=0
-" set conceallevel=2
-" let g:tex_conceal='abdmgs'
+	let g:tex_flavor='latex'
+	let g:vimtex_view_general_viewer = 'SumatraPDF'
+	let g:vimtex_view_general_options
+	    \ = '-reuse-instance -forward-search @tex @line @pdf'
+	
+	" https://github.com/lervag/vimtex/issues/1410#issuecomment-506143020
+	" let g:vimtex_quickfix_mode=0
+	" set conceallevel=2
+	" let g:tex_conceal='abdmgs'
+	" vimtex#imaps#add_map  map = {
+	"     \ 'lhs' : lhs,
+	"     \ 'rhs' : rhs,
+	"     \ 'expr' : bool,
+	"     \ 'leader' : leader_key,
+	"     \ 'wrapper' : function_name,
+	"     \ 'context' : value,
+	"     \ }
 
-" Plug 'sirver/ultisnips'
-" let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+Plug 'sirver/ultisnips'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.

@@ -1,0 +1,1 @@
+" au TextChanged *.tex w
