@@ -1,6 +1,6 @@
 " Vim configuration file
 " By Alexandre Daigneault
-" Updated: 20220914
+" Updated: 20220920
 " This is now tracked by git!!!
 " Don't forget to update and commit with git!
 
@@ -42,8 +42,18 @@ set noexpandtab				" Tabs inserted as tabs
 " For no adding missing end of line at end of file:
 set nofixendofline
 
-
 inoremap jk <ESC>
+" Bracket completion
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
+inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 " Correct the spelling using CTRL-l in insert-mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " For the movements in wrapped text
@@ -61,6 +71,12 @@ inoremap <Down> <C-O>gj
 vnoremap <C-C> "+ygv
 vnoremap <C-X> "+d
 vnoremap <C-V> "+p
+" Save using Ctrl-S in any mode
+noremap <C-S> :w<CR>
+vnoremap <C-S> <C-C>:w<CR>
+inoremap <C-S> <C-O>:w<CR>
+" Undo using Ctrl-Z in Insert mode
+inoremap <C-Z> <C-O>u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
 imap oe<tab> œ
@@ -76,6 +92,7 @@ set display=lastline,uhex
 set guioptions-=T			" Removes toolbar
 set belloff+=backspace,cursor,esc
 set visualbell
+set completeopt=menuone,longest,noinsert	" Allows more convenient completion menu
 " set scrolloff=1			" keep at least 1 lines above/below
 " set sidescrolloff=5		" keep at least 5 lines left/right
 

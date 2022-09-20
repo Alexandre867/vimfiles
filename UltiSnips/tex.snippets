@@ -1,9 +1,101 @@
-snippet \beg "begin{} / end{}" bA
-\begin{$1}
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def nomath():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '0'
+
+def comment(): 
+	return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and y != '0'
+
+endglobal
+
+snippet # "Put in brackets" i
+\\${1:emph}{${VISUAL}$2}$0
+endsnippet
+
+snippet \beg "begin{} / end{}" A
+\begin{$1}$2
 	$0
 \end{$1}
+endsnippet
+
+snippet \bs "\baselineskip" iA
+\baselineskip
 endsnippet
 
 snippet ii "new item" b
 \item 
 endsnippet
+
+context "math()"
+snippet '(?<!\\)_' "Subscript" irA
+_{$1}$0
+endsnippet
+
+context "nomath()"
+snippet '(?<!\\)_' "Subscript in text" irA
+\low{$1}$0
+endsnippet
+
+# snippet '([A-Za-z])(\d)' "auto subscript" wrA
+# `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+# endsnippet
+
+context "math()"
+snippet "(?<!\\)(\^)" "Superscript" irA
+^{$1}$0
+endsnippet
+
+context "nomath()"
+snippet "(?<!\\)(\^)" "Superscript in text" irA
+\pow{$1}$0
+endsnippet
+
+snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
+\overrightarrow{`!p snip.rv=match.group(1)`}
+endsnippet 
+
+global !p
+def create_row_placeholders(snip):
+    # retrieving single line from current string and treat it like tabstops
+    # count
+    placeholders_amount = int(snip.buffer[snip.line].strip())
+
+    # erase current line
+    snip.buffer[snip.line] = ''
+
+    # create anonymous snippet with expected content and number of tabstops
+    anon_snippet_body = ' & '.join(['$' + str(i+1)
+                                    for i in range(placeholders_amount)])
+
+    # expand anonymous snippet
+    snip.expand_anon(anon_snippet_body)
+endglobal
+
+post_jump "create_row_placeholders(snip)"
+snippet "tr(\d+)" "latex table row variable" br
+`!p snip.rv = match.group(1)`
+endsnippet
+
+# priority 100
+snippet '(\\(sub)*section\{)?(\\sec)' "Section and subsection" rA
+`!p 
+if not match.group(1):
+	snip.rv = "\\section{"
+	close_br = True
+else:
+	snip.rv = "\\sub" + match.group(1)[1:]
+	close_br = False
+`$1`!p if close_br: snip.rv="}"`
+endsnippet
+
+# priority 10
+# snippet '(\\\\(sub)*section\\{)?(\\sec)' "Section and subsection" rA
+# \section{$1}
+# $0
+# endsnippet
