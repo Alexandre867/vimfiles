@@ -161,7 +161,8 @@ Plug 'sirver/ultisnips'
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+" let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
