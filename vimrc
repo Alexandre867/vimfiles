@@ -1,7 +1,8 @@
 " Vim configuration file
 " By Alexandre Daigneault
-" Updated: 20220920
+" Updated: 20220922
 " This is now tracked by git!!!
+" (And by the undofile)
 " Don't forget to update and commit with git!
 
 " BASIC CONFIGURATION
@@ -22,14 +23,14 @@ syntax on					" syntax highlighting
 
 set gdefault				" flag g is default on (for :substitute)
 set incsearch				" Show partial search results as you type
-set hlsearch				" Highlight all search results
+" set hlsearch				" Highlight all search results
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
 set autoindent				" Autoindent
 set nowrapscan				" Avoids scanning again from the top after reaching the end
 " set showmatch				" Shows matching brackets during input
-" let mapleader = "ù"		" Leader key is now "ù", (not working with utf-8)
+" let mapleader = "ù"		" Leader key is now "ù" (not working with utf-8)
 " ENCODING: Might need to be commented out
 set encoding=utf-8
 " set encoding=ansi
@@ -41,11 +42,15 @@ set shiftwidth=4			" For proper (auto)indent width
 set noexpandtab				" Tabs inserted as tabs
 " For no adding missing end of line at end of file:
 set nofixendofline
+set undofile				" Activate saving of undofiles
+set undodir=~\vimfiles\undo		" Specify the directory for undofiles
+set viewdir=~\vimfiles\view		" Specify the directory for view files
+
 
 inoremap jk <ESC>
 " Bracket completion
 inoremap " ""<left>
-inoremap ' ''<left>
+" inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
@@ -75,21 +80,39 @@ vnoremap <C-V> "+p
 noremap <C-S> :w<CR>
 vnoremap <C-S> <C-C>:w<CR>
 inoremap <C-S> <C-O>:w<CR>
-" Undo using Ctrl-Z in Insert mode
+" Undo using Ctrl-Z
 inoremap <C-Z> <C-O>u
+noremap <C-Z> u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
 imap oe<tab> œ
 
+" https://www.reddit.com/r/vim/comments/i02w3v/code_commenting_without_plugins/
+function! ToggleComment(comment_char)
+	if getline(".") =~ "^" . a:comment_char
+		execute ".s/^" . a:comment_char . " \\?//g"
+	else
+		execute ".s/^/" . a:comment_char . " /g"
+	endif
+endfunction
+" Example use:
+autocmd FileType vim nnoremap <buffer> gc :call ToggleComment('"')<CR>
+
 " colorscheme elflord
 colorscheme molokai			" Change the colorscheme
 
+" Could be moved to gvimrc:
 set guifont=Consolas:h10	" Set font to Consolas size 10
+set guioptions-=T			" Removes toolbar
+" set guioptions-=rL			" Removes scrollbars
+set guioptions+=d			" Dark theme for GUI
+highlight Normal guibg=#000000		" Sets black background
+
+" Affects appearance
 set splitright
 set splitbelow
 set linebreak
 set display=lastline,uhex
-set guioptions-=T			" Removes toolbar
 set belloff+=backspace,cursor,esc
 set visualbell
 set completeopt=menuone,longest,noinsert	" Allows more convenient completion menu

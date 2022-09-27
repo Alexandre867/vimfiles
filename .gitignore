@@ -1,0 +1,13 @@
+.netrwhist
+plugged/vimtex
+plugged/ultisnips
+undo/
+view/
+vimrc~
+vimrx~
+vimry~
+vimrz~
+.vimrc.un~ 
+*.swp
+UltiSnips/tex_castel.ogsnippets 
+autoload/plug.vim

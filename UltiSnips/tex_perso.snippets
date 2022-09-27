@@ -28,36 +28,76 @@ snippet \bs "\baselineskip" iA
 \baselineskip
 endsnippet
 
+snippet \hsp "hspace" iA
+\hspace{${1:0pt}}$0
+endsnippet
+
+context "nomath()"
+snippet sqq "subquestion" bA
+\subquestion[${1:1}]{${2:a}}$0
+endsnippet
+
+context "nomath()"
+snippet qq "question" bA
+\question[${1:1}]$0
+endsnippet
+
+snippet "\b\\?si" "si" rA
+\si{$1}
+endsnippet
+
+snippet "\b\\?num" "num" rA
+\num{$1}
+endsnippet
+
 snippet ii "new item" b
 \item 
 endsnippet
 
 context "math()"
-snippet '(?<!\\)_' "Subscript" irA
+snippet '(?<!\\)_' "Subscript" ir
 _{$1}$0
 endsnippet
 
+context "math()"
+# snippet "(?<![\\ ])(?<!\\,) " "Math space" irA
+snippet " " "Math space" ir
+\,
+endsnippet
+
+# context "math()"
+# snippet "\\, " "Math space" iA
+# `!p snip.rv="  "`
+# endsnippet
+
+priority 10
+context "math()"
+snippet "(?<!\\)," "comma" irA
+,\,
+endsnippet
+
+priority 1000
 context "nomath()"
-snippet '(?<!\\)_' "Subscript in text" irA
+snippet '(?<!\\)_' "Subscript in text" ir
 \low{$1}$0
 endsnippet
 
-# snippet '([A-Za-z])(\d)' "auto subscript" wrA
+# snippet '([A-Za-z])(\d)' "auto subscript" rA
 # `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 # endsnippet
 
 context "math()"
-snippet "(?<!\\)(\^)" "Superscript" irA
+snippet "(?<!\\)(\^)" "Superscript" ir
 ^{$1}$0
 endsnippet
 
 context "nomath()"
-snippet "(?<!\\)(\^)" "Superscript in text" irA
+snippet "(?<!\\)(\^)" "Superscript in text" ir
 \pow{$1}$0
 endsnippet
 
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
-\overrightarrow{`!p snip.rv=match.group(1)`}
+\overrightarrow{`!p snip.rv=match.group(1)`$1}$0
 endsnippet 
 
 global !p
@@ -83,6 +123,7 @@ snippet "tr(\d+)" "latex table row variable" br
 endsnippet
 
 # priority 100
+context "nomath()"
 snippet '(\\(sub)*section\{)?(\\sec)' "Section and subsection" rA
 `!p 
 if not match.group(1):
@@ -99,3 +140,34 @@ endsnippet
 # \section{$1}
 # $0
 # endsnippet
+
+# Changes to Castel snips
+priority 100000000
+context "math()"
+snippet "\b([B-DF-Z])\1" "\mathbb" rA
+\mathbb{`!p snip.rv = match.group(1)`}
+endsnippet
+
+context "math()"
+snippet "\\?binom"" "binom" irA
+\binom{${1:x}}{${2:y}}
+endsnippet
+
+# context "nomath()"
+snippet "\b\\\w+(?![{a-zA-Z])\b" "command" r
+`!p snip.rv=match.group(0)`{$1}$0
+endsnippet
+
+context "math()"
+# snippet '(([a-zA-Z0-9.,\\])*((\^|_)(\{[^{}]*\}|\w))*)/' "symbol frac" rA
+snippet '(([a-zA-Z0-9.,\\\(\)]|(\^|_)(\{[^{}]*\}|\w))+)/' "symbol frac" rA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+snippet lr "left( right)" i
+\left${1:(} ${2:${VISUAL}} \right${3:)} $0
+endsnippet
+
+snippet "\b\\?SI" "SI" rA
+\SI{$1}{$2}
+endsnippet
