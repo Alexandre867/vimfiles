@@ -1,8 +1,10 @@
 " au TextChanged *.tex w
-call vimtex#syntax#core#new_region_math('nsflalign')
-call vimtex#syntax#core#new_region_math('nsflalign*')
-call vimtex#syntax#core#new_region_math('nsalign')
-call vimtex#syntax#core#new_region_math('nsalign*')
+" Put this in after/syntax/tex.vim
+" https://github.com/lervag/vimtex/issues/2499
+" call vimtex#syntax#core#new_region_math('nsflalign')
+" call vimtex#syntax#core#new_region_math('nsflalign*')
+" call vimtex#syntax#core#new_region_math('nsalign')
+" call vimtex#syntax#core#new_region_math('nsalign*')
 inoremap <buffer> <C-CR> \\<CR>
 inoremap <buffer> <C-S-P> \sec
 
