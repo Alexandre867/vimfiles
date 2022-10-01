@@ -124,10 +124,11 @@ set wildmenu				" Show completion menu
 
 " Make VIM more convenient like a normal text editor
 set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
-set backspace=3 "indent,eol,start,nostop	" Allow backspace wrapping in editing
+set backspace=3 "indent,eol,nostop	" Allow backspace wrapping in editing
 set keymodel=startsel,stopsel	" Shift-arrow will start visual/select mode
 au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start select mode instead of visual when started from Insert mode
 au InsertLeave * set selectmode=			" Resets mouse and shift-arrow to start visual mode when note from Insert mode
+set selection=exclusive						" Make selection of text more normal
 
 " https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 
