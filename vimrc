@@ -48,6 +48,7 @@ set viewdir=~\vimfiles\view		" Specify the directory for view files
 
 
 inoremap jk <ESC>
+map Y y$
 " Bracket completion
 inoremap " ""<left>
 " inoremap ' ''<left>
@@ -104,6 +105,7 @@ colorscheme molokai			" Change the colorscheme
 " Could be moved to gvimrc:
 set guifont=Consolas:h10	" Set font to Consolas size 10
 set guioptions-=T			" Removes toolbar
+set guioptions-=t			" Removes tearoff menu entries
 " set guioptions-=rL			" Removes scrollbars
 set guioptions+=d			" Dark theme for GUI
 highlight Normal guibg=#000000		" Sets black background
@@ -116,6 +118,7 @@ set display=lastline,uhex
 set belloff+=backspace,cursor,esc
 set visualbell
 set completeopt=menuone,longest,noinsert	" Allows more convenient completion menu
+set wildmenu				" Show completion menu
 " set scrolloff=1			" keep at least 1 lines above/below
 " set sidescrolloff=5		" keep at least 5 lines left/right
 
