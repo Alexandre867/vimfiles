@@ -27,6 +27,12 @@ set incsearch				" Show partial search results as you type
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
+" From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 set autoindent				" Autoindent
 set nowrapscan				" Avoids scanning again from the top after reaching the end
 " set showmatch				" Shows matching brackets during input
@@ -86,6 +92,7 @@ inoremap <C-Z> <C-O>u
 noremap <C-Z> u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
+nnoremap <Leader>n :set relativenumber!<cr>		" Change the relativenumber option
 imap oe<tab> œ
 
 " https://www.reddit.com/r/vim/comments/i02w3v/code_commenting_without_plugins/
@@ -166,7 +173,6 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-" let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
