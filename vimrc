@@ -50,6 +50,7 @@ set noexpandtab				" Tabs inserted as tabs
 set nofixendofline
 set undofile				" Activate saving of undofiles
 set undodir=~\vimfiles\undo		" Specify the directory for undofiles
+au BufWinEnter * silent loadview	" Autoload the previous view if saved with :mkview
 set viewdir=~\vimfiles\view		" Specify the directory for view files
 
 
