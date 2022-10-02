@@ -7,5 +7,11 @@ snippet today
 endsnippet
 
 snippet now
-`echo %time%`
+`!v strftime("%X")`
 endsnippet
+# `echo %time%`
+
+snippet clock
+`!v strftime("%x-%X")`
+endsnippet
+
