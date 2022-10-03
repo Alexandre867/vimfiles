@@ -105,6 +105,10 @@ noremap g<Up>   k
 noremap g<Down> j
 inoremap <Up>   <C-O>gk
 inoremap <Down> <C-O>gj
+noremap <End>  g<End>
+noremap <Home> g<Home>
+inoremap <End>  <C-O>g<End>
+inoremap <Home> <C-O>g<Home>
 " For copy, cut and paste in visual mode using system clipboard
 vnoremap <C-C> "+ygv
 vnoremap <C-X> "+d
