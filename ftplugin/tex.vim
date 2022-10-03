@@ -7,6 +7,8 @@
 " call vimtex#syntax#core#new_region_math('nsalign*')
 inoremap <buffer> <C-CR> \\<CR>
 inoremap <buffer> <C-S-P> \sec
+inoremap <buffer> <C-S-U> ^=UltiSnips#ExpandSnippet()
+inoremap <buffer> <C-S-D> _=UltiSnips#ExpandSnippet()
 
 " let g:ulti_expand_or_jump_res = 0 "default value, just set once
 " function! Ulti_ExpandOrJump_and_getRes()
