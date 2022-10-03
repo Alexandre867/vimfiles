@@ -50,8 +50,33 @@ set noexpandtab				" Tabs inserted as tabs
 set nofixendofline
 set undofile				" Activate saving of undofiles
 set undodir=~\vimfiles\undo		" Specify the directory for undofiles
-au BufWinEnter * silent loadview	" Autoload the previous view if saved with :mkview
+au BufWinEnter * silent! loadview	" Autoload the previous view if saved with :mkview
 set viewdir=~\vimfiles\view		" Specify the directory for view files
+set history=300				" Command history depth
+
+" Creates a delview command to delete a view
+" https://stackoverflow.com/questions/28384159/vim-how-to-remove-clear-views-created-by-mkview-from-inside-of-vim
+" # Function to permanently delete views created by 'mkview'
+function! MyDeleteView()
+    let path = fnamemodify(bufname('%'),':~')
+    " vim's odd =~ escaping for /
+    let path = substitute(path, '=', '==', 'g')
+	" Replace with actual ~ path
+"     if empty($HOME)
+"     else
+"         let path = substitute(path, '^'.$HOME, '\~', '')
+"     endif
+    let path = substitute(path, '\\\|/', '=+', 'g') . '='
+    " view directory
+    let path = &viewdir.'/'.path
+    call delete(path)
+    echo "Deleted: ".path
+endfunction
+
+" # Command Delview (and it's abbreviation 'delview')
+command Delview call MyDeleteView()
+" Lower-case user commands: http://vim.wikia.com/wiki/Replace_a_builtin_command_using_cabbrev
+cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delview')<CR>
 
 
 inoremap jk <ESC>
@@ -104,7 +129,7 @@ function! ToggleComment(comment_char)
 		execute ".s/^/" . a:comment_char . " /g"
 	endif
 endfunction
-" Example use:
+" Example use (to actually put in ftplugin/<filetype>.vim):
 autocmd FileType vim nnoremap <buffer> gc :call ToggleComment('"')<CR>
 
 " colorscheme elflord
@@ -155,6 +180,8 @@ Plug 'lervag/vimtex'		" For VimTeX
 	let g:vimtex_view_general_viewer = 'SumatraPDF'
 	let g:vimtex_view_general_options
 	    \ = '-reuse-instance -forward-search @tex @line @pdf'
+
+	let g:vimtex_fold_enabled=1			" Allow automatic folding of the sections
 	
 	" https://github.com/lervag/vimtex/issues/1410#issuecomment-506143020
 	" let g:vimtex_quickfix_mode=0

@@ -20,6 +20,8 @@ function! tex#vis_snip_trig(snip_trigger)
 	exec "call UltiSnips#SaveLastVisualSelection()<cr>gvs" . snip_trigger . "<C-R>=UltiSnips#ExpandSnippet()<cr>"
 endfunction
 
+" Alternatively: select text then press <F7> to be prompted for a tex command
+" Currently there is an issue when selecting text from insert mode with shift-arrow
 vnoremap <buffer> <C-S-E> :call UltiSnips#SaveLastVisualSelection()gvs#=UltiSnips#ExpandSnippet()
 " See https://vi.stackexchange.com/questions/38597/mapping-snippet-trigger-in-visual-mode
 inoremap <buffer> <C-S-E> #=UltiSnips#ExpandSnippet()
