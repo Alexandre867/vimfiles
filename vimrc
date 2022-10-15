@@ -81,7 +81,7 @@ cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delvie
 
 inoremap jk <ESC>
 map Y y$
-" Bracket completion
+" Bracket completion: https://stackoverflow.com/questions/21316727/automatic-closing-brackets-for-vim
 inoremap " ""<left>
 " inoremap ' ''<left>
 inoremap ( ()<left>
@@ -94,7 +94,7 @@ inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 " Correct the spelling using CTRL-l in insert-mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-" For the movements in wrapped text
+" For the movements in wrapped text: https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 noremap j gj
 noremap k gk
 noremap gj j
@@ -166,8 +166,6 @@ set keymodel=startsel,stopsel	" Shift-arrow will start visual/select mode
 au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start select mode instead of visual when started from Insert mode
 au InsertLeave * set selectmode=			" Resets mouse and shift-arrow to start visual mode when note from Insert mode
 set selection=exclusive						" Make selection of text more normal
-
-" https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 
 " from sys import stdin
 " for line in stdin:

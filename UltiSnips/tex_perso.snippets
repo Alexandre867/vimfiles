@@ -78,11 +78,16 @@ snippet qq "question" bA
 \question[${1:1}]$0
 endsnippet
 
-snippet "\b\\?si" "si" r
+context "math()"
+snippet oo "circ operator" i
+\circ 
+endsnippet
+
+snippet "\\?si" "si" r
 \si{$1}
 endsnippet
 
-snippet "\b\\?num" "num" r
+snippet "\\?num" "num" r
 \num{$1}
 endsnippet
 
@@ -133,7 +138,7 @@ snippet "(?<!\\)(\^)" "Superscript in text" ir
 endsnippet
 
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
-\overrightarrow{`!p snip.rv=match.group(1)`$1}$0
+\overrightarrow{`!p snip.rv=match.group(1)`}$0
 endsnippet 
 
 post_jump "create_row_placeholders(snip)"
@@ -187,6 +192,6 @@ snippet lr "left( right)" i
 \left${1:(} ${2:${VISUAL}} \right${3:)} $0
 endsnippet
 
-snippet "\b\\?SI" "SI" r
+snippet "\\?SI" "SI" r
 \SI{$1}{$2}
 endsnippet
