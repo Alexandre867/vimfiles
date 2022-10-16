@@ -136,8 +136,16 @@ endfunction
 " Example use (to actually put in ftplugin/<filetype>.vim):
 autocmd FileType vim nnoremap <buffer> gc :call ToggleComment('"')<CR>
 
+" ----- COLORSCHEME -----
 " colorscheme elflord
 colorscheme molokai			" Change the colorscheme
+" Change the colors for 16 colors terminal (`echo &t_Co`)
+if &t_Co > 15 && &t_Co < 256
+	if has("spell")
+		hi SpellBad                ctermbg=4
+	endif
+end
+
 
 " Could be moved to gvimrc:
 set guifont=Consolas:h10	" Set font to Consolas size 10
@@ -203,6 +211,12 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+
+" Plug 'tpope/vim-fugitive'			" For Git controls from within vim
+
+" Plug 'moll/vim-bbye'				" For buffer closing without window closing
+
+" Plug 'simnalamburt/vim-mundo'			"For undo tree manipulations
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
