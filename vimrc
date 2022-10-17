@@ -192,6 +192,12 @@ Plug 'lervag/vimtex'		" For VimTeX
 	    \ = '-reuse-instance -forward-search @tex @line @pdf'
 
 	let g:vimtex_fold_enabled=1			" Allow automatic folding of the sections
+
+	let g:vimtex_quickfix_ignore_filters=[
+				\ 'Underfull',
+				\ 'Unused global option(s)',
+				\ 'Generic hook.\+is deprecated.',
+				\]						" To ignore messages in quickfix
 	
 	" https://github.com/lervag/vimtex/issues/1410#issuecomment-506143020
 	" let g:vimtex_quickfix_mode=0
