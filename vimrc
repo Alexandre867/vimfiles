@@ -28,11 +28,28 @@ set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
 " From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-augroup END
+" and https://vi.stackexchange.com/questions/4120/how-to-enable-disable-an-augroup-on-the-fly
+" and https://vi.stackexchange.com/questions/8674/how-to-save-and-restore-the-result-of-the-command-set
+function! Toggle_numbertoggle()
+	if !exists('#numbertoggle#BufEnter')
+		let g:old_nu = &nu
+		let g:old_rnu = &rnu
+		let &nu = 1
+		let &rnu = 1
+		augroup numbertoggle
+			autocmd!
+			autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+			autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+		augroup END
+	else
+		augroup numbertoggle
+			autocmd!
+		augroup END
+		let &nu = g:old_nu
+		let &rnu = g:old_rnu
+	endif
+endfunction
+call Toggle_numbertoggle()
 set autoindent				" Autoindent
 set nowrapscan				" Avoids scanning again from the top after reaching the end
 " set showmatch				" Shows matching brackets during input
@@ -111,8 +128,9 @@ inoremap <End>  <C-O>g<End>
 inoremap <Home> <C-O>g<Home>
 " For copy, cut and paste in visual mode using system clipboard
 vnoremap <C-C> "+ygv
-vnoremap <C-X> "+d
-vnoremap <C-V> "+p
+" vnoremap <C-X> "+d			" Already mapped on Windows
+silent! vunmap <C-X>
+" vnoremap <C-V> "+p			" Clashes with visual block
 " Save using Ctrl-S in any mode
 noremap <C-S> :w<CR>
 vnoremap <C-S> <C-C>:w<CR>
@@ -122,7 +140,9 @@ inoremap <C-Z> <C-O>u
 noremap <C-Z> u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
-nnoremap <Leader>n :set relativenumber!<cr>		" Change the relativenumber option
+" Change the relativenumber option
+" nnoremap <Leader>n :set relativenumber!<cr>		
+nnoremap <Leader>n :call Toggle_numbertoggle()<cr>
 imap oe<tab> œ
 
 " https://www.reddit.com/r/vim/comments/i02w3v/code_commenting_without_plugins/
