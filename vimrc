@@ -69,7 +69,7 @@ set undofile				" Activate saving of undofiles
 set undodir=~\vimfiles\undo		" Specify the directory for undofiles
 au BufWinEnter * silent! loadview	" Autoload the previous view if saved with :mkview
 set viewdir=~\vimfiles\view		" Specify the directory for view files
-set history=300				" Command history depth
+set history=1000				" Command history depth
 
 " Creates a delview command to delete a view
 " https://stackoverflow.com/questions/28384159/vim-how-to-remove-clear-views-created-by-mkview-from-inside-of-vim
