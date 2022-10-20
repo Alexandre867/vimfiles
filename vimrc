@@ -186,6 +186,7 @@ set completeopt=menuone,longest,noinsert	" Allows more convenient completion men
 set wildmenu				" Show completion menu
 " set scrolloff=1			" keep at least 1 lines above/below
 " set sidescrolloff=5		" keep at least 5 lines left/right
+set virtualedit=onemore		" Allow to move to one character past the end
 
 " Make VIM more convenient like a normal text editor
 set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
