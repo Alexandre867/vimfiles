@@ -31,6 +31,6 @@ vnoremap <buffer> <C-S-E> :call UltiSnips#SaveLastVisualSelection()gvs#=UltiSn
 inoremap <buffer> <C-S-E> #=UltiSnips#ExpandSnippet()
 
 inoremap <buffer> <S-CR> mk
-vnoremap <buffer> <C-/> :g/^/call ToggleComment('%')<CR>gv
-nnoremap <buffer> <C-/> :call ToggleComment('%')<CR>
-inoremap <buffer> <C-/> <ESC>:call ToggleComment('%')<CR>gi
+vnoremap <silent> <buffer> <C-/> :g/^/call ToggleComment('%')<CR>gv
+nnoremap <silent> <buffer> <C-/> :call ToggleComment('%')<CR>
+inoremap <silent> <buffer> <C-/> <ESC>:call ToggleComment('%')<CR>gi
