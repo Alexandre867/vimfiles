@@ -27,6 +27,7 @@ set incsearch				" Show partial search results as you type
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
+set nojoinspaces			" Join command won't add two spaces after '.', '?' and '!'
 " From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
 " and https://vi.stackexchange.com/questions/4120/how-to-enable-disable-an-augroup-on-the-fly
 " and https://vi.stackexchange.com/questions/8674/how-to-save-and-restore-the-result-of-the-command-set
