@@ -137,7 +137,7 @@ noremap <C-S> :w<CR>
 vnoremap <C-S> <C-C>:w<CR>
 inoremap <C-S> <C-O>:w<CR>
 " Undo using Ctrl-Z
-inoremap <C-Z> <C-O>u
+inoremap <C-Z> <esc>ugi
 noremap <C-Z> u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
@@ -190,7 +190,8 @@ set wildmenu				" Show completion menu
 set virtualedit=onemore		" Allow to move to one character past the end
 
 " Make VIM more convenient like a normal text editor
-set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
+" set whichwrap+=<,>,h,l,[,]	" Allows cursor wrapping
+set whichwrap+=<,>,[,]	" Allows cursor wrapping (but not with h and l)
 set backspace=3 "indent,eol,nostop	" Allow backspace wrapping in editing
 set keymodel=startsel,stopsel	" Shift-arrow will start visual/select mode
 au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start select mode instead of visual when started from Insert mode
