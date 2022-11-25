@@ -60,12 +60,23 @@ snippet \beg "begin{} / end{}" A
 \end{$1}
 endsnippet
 
+snippet preuve "Preuve" b
+\begin{leftbar*}
+	\ul{Preuve}:\\\\
+	$0
+\end{leftbar*}
+endsnippet
+
 snippet \bs "\baselineskip" iA
 \baselineskip
 endsnippet
 
 snippet \hsp "hspace" iA
 \hspace{${1:0pt}}$0
+endsnippet
+
+snippet \vsp "vspace" iA
+\vspace{${1:0pt}}$0
 endsnippet
 
 context "nomath()"
@@ -86,8 +97,23 @@ snippet oo "circ operator" i
 endsnippet
 
 context "math()"
+snippet < "langle" i
+\langle 
+endsnippet
+
+context "math()"
+snippet > "langle" i
+\rangle 
+endsnippet
+
+context "math()"
 snippet IFF "circ operator" i
 \Leftrightarrow 
+endsnippet
+
+context "math()"
+snippet ~= "Approx" iA
+\approx 
 endsnippet
 
 snippet "\\?si" "si" r
@@ -100,11 +126,6 @@ endsnippet
 
 snippet ii "new item" b
 \item 
-endsnippet
-
-context "math()"
-snippet '(?<!\\)_' "Subscript" ir
-_{$1}$0
 endsnippet
 
 context "math()"
@@ -122,6 +143,11 @@ priority 10
 context "math()"
 snippet "(?<!\\)," "comma" irA
 ,\,
+endsnippet
+
+context "math()"
+snippet '(?<!\\)_' "Subscript" ir
+_{$1}$0
 endsnippet
 
 priority 1000
