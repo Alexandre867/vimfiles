@@ -27,7 +27,7 @@ set incsearch				" Show partial search results as you type
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
-set nojoinspaces			" Join command won't add two spaces after '.', '?' and '!'
+
 " From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
 " and https://vi.stackexchange.com/questions/4120/how-to-enable-disable-an-augroup-on-the-fly
 " and https://vi.stackexchange.com/questions/8674/how-to-save-and-restore-the-result-of-the-command-set
@@ -51,19 +51,24 @@ function! Toggle_numbertoggle()
 	endif
 endfunction
 call Toggle_numbertoggle()
+
+set nojoinspaces			" Join command won't add two spaces after '.', '?' and '!'
 set autoindent				" Autoindent
 set nowrapscan				" Avoids scanning again from the top after reaching the end
 " set showmatch				" Shows matching brackets during input
 " let mapleader = "ù"		" Leader key is now "ù" (not working with utf-8)
+
 " ENCODING: Might need to be commented out
 set encoding=utf-8
 " set encoding=ansi
 " set spell spelllang=en_ca		" Spelling correct (in English)
 " set spelllang+=fr
 set spell spelllang=fr		" Spelling correct (in French)
+
 set tabstop=4				" Set tab width to 4 spaces
 set shiftwidth=4			" For proper (auto)indent width
 set noexpandtab				" Tabs inserted as tabs
+
 " For no adding missing end of line at end of file:
 set nofixendofline
 set undofile				" Activate saving of undofiles
@@ -129,7 +134,7 @@ inoremap <End>  <C-O>g<End>
 inoremap <Home> <C-O>g<Home>
 " For copy, cut and paste in visual mode using system clipboard
 vnoremap <C-C> "+ygv
-" vnoremap <C-X> "+d			" Already mapped on Windows
+" vnoremap <C-X> "+d			" Already mapped on Windows and clashes with count downward; next line removes it
 silent! vunmap <C-X>
 " vnoremap <C-V> "+p			" Clashes with visual block
 " Save using Ctrl-S in any mode
@@ -144,9 +149,10 @@ noremap <Leader>l :set list!<CR>
 " Change the relativenumber option
 " nnoremap <Leader>n :set relativenumber!<cr>		
 nnoremap <Leader>n :call Toggle_numbertoggle()<cr>
-imap oe<tab> œ
+" imap oe<tab> œ " Use C-K oe instead (see :dig)
 
 " https://www.reddit.com/r/vim/comments/i02w3v/code_commenting_without_plugins/
+" Note: For commenting a block, better to use block mode, this only toggles each line (see :h v_b_I)
 function! ToggleComment(comment_char)
 	if getline(".") =~ "^" . a:comment_char
 		execute ".s/^" . a:comment_char . " \\?//g"
