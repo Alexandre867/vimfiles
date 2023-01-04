@@ -155,7 +155,7 @@ function! ToggleComment(comment_char)
 	endif
 endfunction
 " Example use (to actually put in ftplugin/<filetype>.vim):
-autocmd FileType vim nnoremap <buffer> gc :call ToggleComment('"')<CR>
+autocmd FileType vim nnoremap <buffer> <C-/> :call ToggleComment('"')<CR>
 
 " ----- COLORSCHEME -----
 " colorscheme elflord
@@ -246,6 +246,8 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " Plug 'moll/vim-bbye'				" For buffer closing without window closing
 
 " Plug 'simnalamburt/vim-mundo'			"For undo tree manipulations
+
+Plug 'preservim/vim-markdown'		" For better markdown editing in Vim
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
