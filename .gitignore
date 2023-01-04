@@ -1,6 +1,7 @@
 .netrwhist
 plugged/vimtex
 plugged/ultisnips
+plugged/vim-markdown
 undo/
 view/
 vimrc~
