@@ -27,6 +27,7 @@ set incsearch				" Show partial search results as you type
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
+let g:python_recommended_style = 0	" To disable PEP8 recommanded settings (ft-python-plugin)
 
 " From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
 " and https://vi.stackexchange.com/questions/4120/how-to-enable-disable-an-augroup-on-the-fly
@@ -103,7 +104,7 @@ cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delvie
 
 
 inoremap jk <ESC>
-map Y y$
+noremap Y y$
 " Bracket completion: https://stackoverflow.com/questions/21316727/automatic-closing-brackets-for-vim
 inoremap " ""<left>
 " inoremap ' ''<left>
@@ -115,8 +116,16 @@ inoremap {;<CR> {<CR>};<ESC>O
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
+" Put selection within brackets
+" snoremap ( <Esc>`>i)<Esc>`<i(<Esc>
+snoremap ( <c-g>:s/\%V.*\%V./(\0)<CR>gv<c-g>
+xmap <leader>( <c-g>(<c-g>
+snoremap [ <c-g>:s/\%V.*\%V./[\0]<CR>gv<c-g>
+xmap <leader>[ <c-g>[<c-g>
+snoremap { <c-g>:s/\%V.*\%V./{\0}<CR>gv<c-g>
+xmap <leader>{ <c-g>{<c-g>
 " Correct the spelling using CTRL-l in insert-mode
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+inoremap <C-l> <c-g>u<Esc>[s1z=gi<c-g>u
 " For the movements in wrapped text: https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
 noremap j gj
 noremap k gk
@@ -132,6 +141,13 @@ noremap <End>  g<End>
 noremap <Home> g<Home>
 inoremap <End>  <C-O>g<End>
 inoremap <Home> <C-O>g<Home>
+" For moving lines, from https://vim.fandom.com/wiki/Moving_lines_up_or_down
+nnoremap <C-down> :m .+1<CR>==
+nnoremap <C-up> :m .-2<CR>==
+inoremap <C-down> <Esc>:m .+1<CR>==gi
+inoremap <C-up> <Esc>:m .-2<CR>==gi
+vnoremap <C-down> :m '>+1<CR>gv=gv
+vnoremap <C-up> :m '<-2<CR>gv=gv
 " For copy, cut and paste in visual mode using system clipboard
 vnoremap <C-C> "+ygv
 " vnoremap <C-X> "+d			" Already mapped on Windows and clashes with count downward; next line removes it
@@ -146,10 +162,25 @@ inoremap <C-Z> <esc>ugi
 noremap <C-Z> u
 nnoremap <Leader><space> :nohlsearch<CR>
 noremap <Leader>l :set list!<CR>
+set listchars+=nbsp:~,multispace:···+,tab:-->
 " Change the relativenumber option
 " nnoremap <Leader>n :set relativenumber!<cr>		
 nnoremap <Leader>n :call Toggle_numbertoggle()<cr>
 " imap oe<tab> œ " Use C-K oe instead (see :dig)
+
+" Twiddle case (UPPER CASE to lower case to Title Case)
+" https://vim.fandom.com/wiki/Switching_case_of_characters#Twiddle_case
+function! TwiddleCase(str)
+  if a:str ==# toupper(a:str)
+    let result = tolower(a:str)
+  elseif a:str ==# tolower(a:str)
+    let result = substitute(a:str,'\(\<\w\+\>\)', '\u\1', 'g')
+  else
+    let result = toupper(a:str)
+  endif
+  return result
+endfunction
+vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 " https://www.reddit.com/r/vim/comments/i02w3v/code_commenting_without_plugins/
 " Note: For commenting a block, better to use block mode, this only toggles each line (see :h v_b_I)
@@ -162,6 +193,7 @@ function! ToggleComment(comment_char)
 endfunction
 " Example use (to actually put in ftplugin/<filetype>.vim):
 autocmd FileType vim nnoremap <buffer> <C-/> :call ToggleComment('"')<CR>
+autocmd FileType vim vnoremap <buffer> <C-/> :g/^/call ToggleComment('"')<CR>gv
 
 " ----- COLORSCHEME -----
 " colorscheme elflord
@@ -254,6 +286,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " Plug 'simnalamburt/vim-mundo'			"For undo tree manipulations
 
 Plug 'preservim/vim-markdown'		" For better markdown editing in Vim
+	map <Plug> <Plug>Markdown_EditUrlUnderCursor
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
