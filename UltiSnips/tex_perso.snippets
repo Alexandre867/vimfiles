@@ -67,6 +67,12 @@ snippet preuve "Preuve" b
 \end{leftbar*}
 endsnippet
 
+snippet ex: "Example" b
+\begin{leftbar*}
+	\ul{Ex$1}: $0
+\end{leftbar*}
+endsnippet
+
 snippet \bs "\baselineskip" iA
 \baselineskip
 endsnippet
@@ -150,6 +156,7 @@ snippet '(?<!\\)_' "Subscript" ir
 _{$1}$0
 endsnippet
 
+# Replace the tex_castel snippets
 priority 1000
 context "nomath()"
 snippet '(?<!\\)_' "Subscript in text" ir
@@ -210,14 +217,14 @@ snippet "\\?binom"" "binom" irA
 \binom{${1:x}}{${2:y}}
 endsnippet
 
-# context "nomath()"
-snippet "\b\\\w+(?![{a-zA-Z])\b" "command" r
-`!p snip.rv=match.group(0)`{$1}$0
-endsnippet
+# # context "nomath()"
+# snippet "\b\\\w+(?![{a-zA-Z])\b" "command" r
+# `!p snip.rv=match.group(0)`{$1}$0
+# endsnippet
 
 context "math()"
 # snippet '(([a-zA-Z0-9.,\\])*((\^|_)(\{[^{}]*\}|\w))*)/' "symbol frac" rA
-snippet '(([a-zA-Z0-9.,\\\(\)]|(\^|_)(\{[^{}]*\}|\w))+)/' "symbol frac" rA
+snippet '(([a-zA-Z0-9.,\\\(\)]|(\^|_)(\{[^{}]*\}|\w))+)(?<!\))/' "symbol frac" rA
 \\frac{`!p snip.rv = match.group(1)`}{$1}$0
 endsnippet
 
@@ -227,4 +234,9 @@ endsnippet
 
 snippet "\\?SI" "SI" r
 \SI{$1}{$2}
+endsnippet
+
+context "math()"
+snippet '(?<!\\)(sin|cos|tan|arcsin|arccos|arctan|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+\\`!p snip.rv = match.group(1)`
 endsnippet

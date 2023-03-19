@@ -150,11 +150,13 @@ stripped = match.string[:-1]
 depth = 0
 i = len(stripped) - 1
 while True:
+	if i < 0: break;
 	if stripped[i] == ')': depth += 1
 	if stripped[i] == '(': depth -= 1
 	if depth == 0: break;
 	i-=1
-snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+if i >= 0: snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+else: snip.rv = stripped + "/"
 `{$1}$0
 endsnippet
 
@@ -163,10 +165,10 @@ endsnippet
 # `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 # endsnippet
 
-context "math()"
-snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
-`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
-endsnippet
+# context "math()"
+# snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+# `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+# endsnippet
 
 
 snippet sympy "sympyblock " w
@@ -423,7 +425,7 @@ endsnippet
 
 context "math()"
 snippet nabl "nabla" iA
-\nabla 
+\nabla
 endsnippet
 
 context "math()"
@@ -447,7 +449,7 @@ endsnippet
 
 priority 100
 context "math()"
-snippet '(?<!\\)(sin|cos|arccot|cot|csc|ln|log|exp|star|perp)' "ln" rwA
+snippet '(?<!\\)\b(sin|cos|arccot|cot|csc|ln|log|exp|star|perp|i+nt)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
@@ -459,7 +461,7 @@ endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet '(?<!\\)\b(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|oi+nt)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
