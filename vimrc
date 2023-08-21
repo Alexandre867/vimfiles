@@ -62,9 +62,9 @@ set nowrapscan				" Avoids scanning again from the top after reaching the end
 " ENCODING: Might need to be commented out
 set encoding=utf-8
 " set encoding=ansi
-" set spell spelllang=en_ca		" Spelling correct (in English)
-" set spelllang+=fr
-set spell spelllang=fr		" Spelling correct (in French)
+set spell
+set spelllang=en_ca		" Spelling correct (in English)
+" set spelllang=fr		" Spelling correct (in French)
 
 set tabstop=4				" Set tab width to 4 spaces
 set shiftwidth=4			" For proper (auto)indent width
@@ -124,6 +124,8 @@ snoremap [ <c-g>:s/\%V.*\%V./[\0]<CR>gv<c-g>
 xmap <leader>[ <c-g>[<c-g>
 snoremap { <c-g>:s/\%V.*\%V./{\0}<CR>gv<c-g>
 xmap <leader>{ <c-g>{<c-g>
+snoremap " <c-g>:s/\%V.*\%V./"\0"<CR>gv<c-g>
+xmap <leader>" <c-g>"<c-g>
 " Correct the spelling using CTRL-l in insert-mode
 inoremap <C-l> <c-g>u<Esc>[s1z=gi<c-g>u
 " For the movements in wrapped text: https://vim.fandom.com/wiki/Move_cursor_by_display_lines_when_wrapping
@@ -160,7 +162,7 @@ inoremap <C-S> <C-O>:w<CR>
 " Undo using Ctrl-Z
 inoremap <C-Z> <esc>ugi
 noremap <C-Z> u
-nnoremap <Leader><space> :nohlsearch<CR>
+nnoremap <Leader><space> :set hls!<CR>
 noremap <Leader>l :set list!<CR>
 set listchars+=nbsp:~,multispace:···+,tab:-->
 " Change the relativenumber option
@@ -210,6 +212,7 @@ end
 set guifont=Consolas:h10	" Set font to Consolas size 10
 set guioptions-=T			" Removes toolbar
 set guioptions-=t			" Removes tearoff menu entries
+set guioptions-=m			" Removes menu bar
 " set guioptions-=rL			" Removes scrollbars
 set guioptions+=d			" Dark theme for GUI
 highlight Normal guibg=#000000		" Sets black background
@@ -235,6 +238,7 @@ set keymodel=startsel,stopsel	" Shift-arrow will start visual/select mode
 au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start select mode instead of visual when started from Insert mode
 au InsertLeave * set selectmode=			" Resets mouse and shift-arrow to start visual mode when note from Insert mode
 set selection=exclusive						" Make selection of text more normal
+set nrformats=bin,hex,unsigned						" Don't recognize number sign when using CTRL-A and CTRL-X
 
 " from sys import stdin
 " for line in stdin:
@@ -286,6 +290,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " Plug 'simnalamburt/vim-mundo'			"For undo tree manipulations
 
 Plug 'preservim/vim-markdown'		" For better markdown editing in Vim
+	" Reset ge keys to default
 	map <Plug> <Plug>Markdown_EditUrlUnderCursor
 
 " Initialize plugin system
