@@ -62,6 +62,7 @@ set nowrapscan				" Avoids scanning again from the top after reaching the end
 " ENCODING: Might need to be commented out
 set encoding=utf-8
 " set encoding=ansi
+" set fileencodings=ucs-bom,utf-16le,utf-8,default,latin1
 set spell
 set spelllang=en_ca		" Spelling correct (in English)
 " set spelllang=fr		" Spelling correct (in French)
@@ -105,6 +106,8 @@ cabbrev delview <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'Delview' : 'delvie
 
 inoremap jk <ESC>
 noremap Y y$
+" Map Q to quit window even with a command-line range
+command! -range Q execute 'quit'
 " Bracket completion: https://stackoverflow.com/questions/21316727/automatic-closing-brackets-for-vim
 inoremap " ""<left>
 " inoremap ' ''<left>
