@@ -27,7 +27,7 @@ set incsearch				" Show partial search results as you type
 set ignorecase				" Ignores the case for regex search
 set smartcase				" Overrides ignorecase if upper case character
 set number					" Show line number
-let g:python_recommended_style = 0	" To disable PEP8 recommanded settings (ft-python-plugin)
+" let g:python_recommended_style = 0	" To disable PEP8 recommanded settings (ft-python-plugin)
 
 " From http://github.com/jeffkreeftmeijer/vim-numbertoggle: (For relative numbers only sometimes)
 " and https://vi.stackexchange.com/questions/4120/how-to-enable-disable-an-augroup-on-the-fly
