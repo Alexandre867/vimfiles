@@ -172,6 +172,7 @@ set listchars+=nbsp:~,multispace:···+,tab:-->
 " nnoremap <Leader>n :set relativenumber!<cr>		
 nnoremap <Leader>n :call Toggle_numbertoggle()<cr>
 " imap oe<tab> œ " Use C-K oe instead (see :dig)
+inoremap <C-BS> <C-W>
 
 " Twiddle case (UPPER CASE to lower case to Title Case)
 " https://vim.fandom.com/wiki/Switching_case_of_characters#Twiddle_case
@@ -224,7 +225,7 @@ highlight Normal guibg=#000000		" Sets black background
 set splitright
 set splitbelow
 set linebreak
-set display=lastline,uhex
+set display=lastline,uhex	" Displays @@@ for incomplete last line and hexa <xx> instead of ^M
 set belloff+=backspace,cursor,esc
 set visualbell
 set completeopt=menuone,longest,noinsert	" Allows more convenient completion menu
@@ -242,6 +243,7 @@ au InsertEnter * set selectmode=mouse,key	" Mouse and shift-arrow will start sel
 au InsertLeave * set selectmode=			" Resets mouse and shift-arrow to start visual mode when note from Insert mode
 set selection=exclusive						" Make selection of text more normal
 set nrformats=bin,hex,unsigned						" Don't recognize number sign when using CTRL-A and CTRL-X
+set scrolloff=1			" For always one line above and below cursor
 
 " from sys import stdin
 " for line in stdin:
