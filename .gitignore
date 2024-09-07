@@ -2,8 +2,8 @@
 plugged/vimtex
 plugged/ultisnips
 plugged/vim-markdown
-ftplugin/dosbatch.vim
-ftplugin/markdown.vim
+# ftplugin/dosbatch.vim
+# ftplugin/markdown.vim
 undo/
 view/
 vimrc~
