@@ -58,6 +58,7 @@ set autoindent				" Autoindent
 set nowrapscan				" Avoids scanning again from the top after reaching the end
 " set showmatch				" Shows matching brackets during input
 " let mapleader = "ù"		" Leader key is now "ù" (not working with utf-8)
+set hidden					" Allow switching unsaved buffer
 
 " ENCODING: Might need to be commented out
 set encoding=utf-8
