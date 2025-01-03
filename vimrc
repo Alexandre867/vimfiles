@@ -174,6 +174,9 @@ set listchars+=nbsp:~,multispace:···+,tab:-->
 nnoremap <Leader>n :call Toggle_numbertoggle()<cr>
 " imap oe<tab> œ " Use C-K oe instead (see :dig)
 inoremap <C-BS> <C-W>
+" Open the current file folder
+" https://vim.fandom.com/wiki/Open_Windows_Explorer_showing_directory_of_current_buffer
+nnoremap <silent> <Leader>e :silent exe "!start explorer /select," .. shellescape(expand("%:p"))<cr>
 
 " Twiddle case (UPPER CASE to lower case to Title Case)
 " https://vim.fandom.com/wiki/Switching_case_of_characters#Twiddle_case
