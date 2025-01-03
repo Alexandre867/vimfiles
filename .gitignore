@@ -1,7 +1,8 @@
 .netrwhist
-plugged/vimtex
 plugged/ultisnips
+plugged/undotree
 plugged/vim-markdown
+plugged/vimtex
 # ftplugin/dosbatch.vim
 # ftplugin/markdown.vim
 undo/

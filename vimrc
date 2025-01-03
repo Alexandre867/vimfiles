@@ -177,6 +177,8 @@ inoremap <C-BS> <C-W>
 " Open the current file folder
 " https://vim.fandom.com/wiki/Open_Windows_Explorer_showing_directory_of_current_buffer
 nnoremap <silent> <Leader>e :silent exe "!start explorer /select," .. shellescape(expand("%:p"))<cr>
+" To open and close the undotree (mbbill/undotree)
+nnoremap <Leader>u :UndotreeToggle<CR>
 
 " Twiddle case (UPPER CASE to lower case to Title Case)
 " https://vim.fandom.com/wiki/Switching_case_of_characters#Twiddle_case
@@ -297,6 +299,8 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " Plug 'moll/vim-bbye'				" For buffer closing without window closing
 
 " Plug 'simnalamburt/vim-mundo'			"For undo tree manipulations
+
+Plug 'mbbill/undotree'				" For undo tree
 
 Plug 'preservim/vim-markdown'		" For better markdown editing in Vim
 	" Reset ge keys to default
